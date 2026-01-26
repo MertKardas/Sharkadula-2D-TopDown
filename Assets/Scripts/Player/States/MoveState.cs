@@ -43,7 +43,17 @@ public class MoveState : State<PlayerController>
     public override void CheckTransitions()
     {
         var speed = _rigidbody.linearVelocity.magnitude;
-        //There is no input and speed is almost zero
+        var isRunning = InputManager.Instance.ReadInput<float>(InputType.Run) > 0.5f;
+
+        // Run tuşuna basıldı - RunState'e geç
+        if (isRunning && _input != Vector2.zero)
+        {
+            var state = _machine.GetState<RunState>();
+            _machine.SetState(state);
+            return;
+        }
+
+        // Input yok ve hız düşük - Idle'a geç
         if (speed < 0.1f && _input == Vector2.zero)
         {
             var state = _machine.GetState<IdleState>();
