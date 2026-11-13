@@ -74,3 +74,7 @@ Codex yönerge dosyası için kaynak: [OpenAI AGENTS.md rehberi](https://learn.c
 ## Git ignore düzenlemesi
 
 Unity önbellek/build kuralları korundu. Üretilen `*.slnx` dosyaları, Rider önbelleği, işletim sistemi dosyaları ve yeni recovery çıktıları ignore edildi. Önceden takip edilen recovery sahneleri hâlâ Git içinde; ignore kuralı onları silmez veya takipten çıkarmaz. `Assets`, `Packages`, `ProjectSettings`, `.vscode` ayarları ve Codex belgeleri topluca ignore edilmedi.
+
+## NaughtyAttributes removal update
+
+The NaughtyAttributes candidate listed above has now been removed with its tests and samples. The referenced GitHub icon was preserved under Assets/Images with its original GUID. Earlier inventory totals describe the pre-removal scan.

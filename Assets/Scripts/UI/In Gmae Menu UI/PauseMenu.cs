@@ -7,7 +7,7 @@ using static System.Net.WebRequestMethods;
 using DentedPixel;
 public class PauseMenu : MonoBehaviour,IGamePanel
 {
-    [NaughtyAttributes.Scene, SerializeField] public string mainMenuSceneName;
+    [SerializeField] public string mainMenuSceneName;
     private GameUI gameUI;
     private CanvasGroup canvasGroup;
     [SerializeField] Button selectedButton;

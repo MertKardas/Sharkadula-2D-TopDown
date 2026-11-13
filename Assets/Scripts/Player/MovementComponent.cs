@@ -1,5 +1,4 @@
 using UnityEngine;
-using NaughtyAttributes;
 public class MovementComponent : MonoBehaviour, IComponent {
     Rigidbody2D rb;
     [field: SerializeField] public float MaxSpeed { get; set; }

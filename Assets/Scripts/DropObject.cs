@@ -1,7 +1,6 @@
 using UnityEngine;
 using Newtonsoft.Json;
 using System;
-using NaughtyAttributes;
 
 public class DropObject : MonoBehaviour, ICollectable, ISavable
 {

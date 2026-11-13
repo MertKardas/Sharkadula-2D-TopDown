@@ -1,5 +1,4 @@
 
-using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +16,7 @@ public class PlayerController : MonoBehaviour, ISavable
     public AttackComponent AttackComponent;
     public InteractionComponent InteractionComponent;
     public HealthComponent HealthComponent;
-    public StateMachine<PlayerController> Machine;
+    [NonSerialized] public StateMachine<PlayerController> Machine;
     public MovementComponent MovementComponent;
     public PlayerVisualComponent VisualComponent;
     public InventoryComponent InventoryComponent;

@@ -17,6 +17,23 @@
 - Düşmanlar `EnemyController`, `EnemyMovement`, Unity Behavior ve NavMeshPlus kullanır; oyuncunun durum makinesini kullanmaz.
 - Eşyalar `ItemData`, `ItemDataBase` ve Addressables `Item` etiketiyle yüklenir.
 
+## Karpathy ilkeleri
+
+1. **Kodlamadan önce düşün:** Varsayımlarını açıkla. Sonucu etkileyen
+   belirsizlikleri sor; alternatiflerin önemli farklarını belirt.
+
+2. **Önce sadelik:** İstenen problemi çözen en küçük tam çözümü uygula.
+   İstenmeyen özellik, soyutlama ve geleceğe yönelik esneklik ekleme.
+
+3. **Hedefli değişiklik yap:** Yalnızca görev için gerekli yerlere dokun.
+   Mevcut üslubu koru. Kendi değişikliğinin kullanılmaz hâle getirdiği
+   kodu temizle; ilgisiz temizlikleri ayrıca bildir.
+
+4. **Doğrulanabilir hedefle ilerle:** Başarı ölçütünü baştan belirle.
+   Çok adımlı işlerde kısa plan ve doğrulama adımlarını açıkla.
+   Hataları mümkünse regresyon testiyle doğrula; çalıştırmadığın
+   kontrolleri tamamlanmış gibi sunma.
+
 ## Değişiklik kuralları
 
 - İstenen işi mevcut bileşenlerle ve en küçük tam değişiklikle çöz. Belge temizliğini oyun mimarisini yeniden yazma işine dönüştürme.

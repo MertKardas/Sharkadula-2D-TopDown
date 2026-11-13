@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using NaughtyAttributes;
 using Newtonsoft.Json;
 using System.IO;
 

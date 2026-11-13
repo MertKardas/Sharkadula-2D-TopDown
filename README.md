@@ -77,12 +77,15 @@ Kayıtlar `Application.persistentDataPath` altındaki `Saves/quickSave` dizinine
 
 - [Codex yönergeleri](AGENTS.md): Depoda çalışırken uygulanacak kısa kurallar.
 - [Mimari ve mevcut durum](docs/architecture.md): Sistem ilişkileri, kayıt akışı ve bilinen teknik borçlar.
+- [Bağımlılık envanteri](docs/dependencies.md): Harici kütüphaneler, Unity paketleri ve kurulum durumu.
 - [Gereksiz dosya adayları](docs/cleanup.md): Referans incelemesi, tutulan dosyalar ve temizlik önerileri.
 
 Eski Copilot yönergeleri ve Memory Bank bu belgelere dönüştürüldü. Yeni özellikler veya hedef mimari kararlaştırıldıkça belgeler kodla birlikte güncellenmeli.
 
 ## Kullanılan araçlar ve içerikler
 
-Input System, URP 2D, Addressables, Unity Behavior, AI Navigation/NavMeshPlus, Newtonsoft.Json, uGUI/TextMesh Pro, LeanTween, NaughtyAttributes ve SerializedCollections kullanılıyor. UIEffect ve Rounded Corners paketleri de manifestte yer alıyor.
+VContainer **1.19.0**, MessagePipe ve VContainer entegrasyonu **1.8.2**, UniTask **2.5.11** proje bağımlılıklarına eklendi. Mevcut oyun kodunun bu yapılara dönüşümü henüz yapılmadı. Kurulum sınırları ve tam liste için [bağımlılık envanterine](docs/dependencies.md) bak.
+
+Input System, URP 2D, Addressables, Unity Behavior, AI Navigation/NavMeshPlus, Newtonsoft.Json, uGUI/TextMesh Pro, LeanTween ve SerializedCollections kullanılıyor. UIEffect ve Rounded Corners paketleri de manifestte yer alıyor.
 
 Eski README, karakterleri “Free Vampire 4-Direction Pixel Character Sprite Pack”, çevreyi “Dungeon Asset Pack” olarak belirtiyordu. Üçüncü taraf lisans ve atıf dosyalarını koru; içerikleri yeniden dağıtmadan önce ilgili lisansları doğrula. Depo kökünde projeye ait bir lisans dosyası bulunmuyor.

@@ -1,10 +1,9 @@
-using NaughtyAttributes;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.UI;
 [RequireComponent(typeof(CanvasGroup))]
 public class SettingsMenu : MonoBehaviour, IGamePanel {
-    [BoxGroup("Volume Sliders"), SerializeField]
+    [Header("Volume Sliders"), SerializeField]
     private Slider 
         masterVolumeSlider,
         musicVolumeSlider,

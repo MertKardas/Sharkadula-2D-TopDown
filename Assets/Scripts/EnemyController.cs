@@ -1,4 +1,3 @@
-using NaughtyAttributes;
 using System;
 using Unity.Behavior;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour, ISavable
 {
     [Header("Enemy Data")]
-    [Expandable]
+
     [SerializeField] private EnemyData _enemyData;
 
     [Header("Components")]
@@ -16,7 +15,7 @@ public class EnemyController : MonoBehaviour, ISavable
     private EnemyMovement _enemyMovement;
 
     [Header("Runtime")]
-    [ShowNonSerializedField] private int _currentHealth;
+    private int _currentHealth;
 
     public int CurrentHealth => _currentHealth;
     public bool IsDead => _currentHealth <= 0;

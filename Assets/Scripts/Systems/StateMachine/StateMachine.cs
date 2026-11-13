@@ -114,7 +114,7 @@ public class StateMachine<T> where T : class {
         return path;
     }
 }
-[Serializable]
+// Save data is serialized by Newtonsoft.Json, not Unity.
 public class StateData {
     public string stateTypeName;
     public Dictionary<string, object> customData;

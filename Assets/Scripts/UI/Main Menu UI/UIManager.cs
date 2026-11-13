@@ -1,6 +1,5 @@
 
 using UnityEngine;
-using NaughtyAttributes;
 using System.Collections;
 using System.Linq;
 using UnityEngine.UI;
@@ -8,7 +7,7 @@ using UnityEngine.SceneManagement;
 using System;
 using UnityEngine.EventSystems;
 public class UIManager : MonoBehaviour {
-    [Scene, SerializeField] private string firstLevel;
+    [SerializeField] private string firstLevel;
     [SerializeField] private Button resumeGameButton;
     [SerializeField] private Button firstSelectedButton;
     private void Start() {

@@ -73,7 +73,7 @@ public class SceneSaveLoader
 
     private ISavable[] FindAllSavables()
     {
-        return Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+        return Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include)
             .OfType<ISavable>()
             .ToArray();
     }
