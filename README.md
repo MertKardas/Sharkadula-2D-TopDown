@@ -1,240 +1,88 @@
-#  Sharkadula – 2D Top-Down RPG
+# Sharkadula
 
-A **2D Top-Down RPG** project developed in **Unity**, built upon principles of **modular architecture**, **clean code**, and **high reusability**. The game features **4-directional movement mechanics** set within a **dark, atmospheric Vampire/Dungeon world**.
+Unity ile geliştirilmiş, vampir ve zindan temalı bir **2D top-down oyun demosu**. Eski proje yeniden düzenlenmek üzere inceleniyor; bu depo şu an mevcut uygulamanın başlangıç noktasıdır.
 
-[![Demo](intro/intro.png)](https://www.youtube.com/watch?v=s4vGGgpIS2c)
+[![Eski demo videosu](intro/intro.png)](https://www.youtube.com/watch?v=s4vGGgpIS2c)
 
-## 🎯 Quick Summary
+> Video eski sürümü gösterir. Aşağıdaki özellikler kodda bulunuyor; mevcut checkout için Unity derlemesi ve oynanış doğrulaması yapılmış değildir.
 
-A complete dungeon-crawler foundation featuring:
+## Projeyi açma
 
-| Category | Features |
-|----------|----------|
-| **Core** | Game state management, Save/Load system, Input handling |
-| **Player** | Modular components (Movement, Health, Inventory, Interaction) |
-| **Audio** | Pooled audio system with mixer groups, fade effects, volume persistence |
-| **Gameplay** | Item collection, locked doors, treasure chests, spike traps |
-| **AI** | Enemy pathfinding with Unity Behavior graphs |
-| **UI** | Pause menu, settings, inventory display, death/end screens |
-| **Persistence** | Full JSON-based save system with multiple slots |
+1. Unity Hub üzerinden **6000.3.3f1** Editor sürümünü kur. Hedef platforma göre build modülünü ekle.
+2. Bu depoyu klonla ve kök klasörü Unity Hub'a proje olarak ekle.
+3. Paketlerin ve assetlerin içe aktarılmasını bekle. İlk paket çözümlemesinde internet ve Git erişimi gerekir.
+4. `Assets/Scenes/MainMenu.unity` sahnesini aç; Console hatalarını kontrol edip Play Mode'a geç.
+5. Yeni oyun veya mevcut kayıtla devam et akışını kullan. Yeniden başlatma ve pause için aşağıdaki bilinen eksikleri dikkate al.
 
-**Tech Stack:** Unity 2D • New Input System • LeanTween • Addressables • Newtonsoft.Json • Unity Behavior
+Editor sürümünün kaynağı [ProjectVersion.txt](ProjectSettings/ProjectVersion.txt), paketlerin kaynağı [manifest.json](Packages/manifest.json) ve [packages-lock.json](Packages/packages-lock.json) dosyalarıdır. Bu düzenleme sırasında paketler veya Unity sürümü yükseltilmedi.
 
-## 📐 Design Patterns Used
+## Mevcut kapsam
 
-* **Singleton** – Central systems (`GameManager`, `AudioManager`, `InputManager`, `SaveManager`, `ItemDataBase`) with global access and single source of truth.
+| Alan | Kodda bulunanlar |
+| --- | --- |
+| Oyuncu | Yürüme/koşma, dört yön animasyonları, can/hasar/ölüm durumları |
+| Etkileşim | Sandık, anahtar toplama, kilitli kapı ve kapıdan demo bitişi |
+| Envanter | Beş slot, yığınlanabilir eşya desteği, para ve değişiklik olayları |
+| Kayıt | JSON dosyası, metadata, hızlı kayıt, sahne bazlı nesne durumları ve dinamik eşya yükleme |
+| Düşman | Unity Behavior grafiği, NavMeshAgent ve NavMeshPlus ile hareket altyapısı |
+| Ses | AudioSource havuzu, müzik, mixer grupları ve PlayerPrefs ses ayarları |
+| Arayüz | Ana menü, HUD, envanter, pause/ayarlar/ölüm panelleri ve LeanTween geçişleri |
 
-* **State Machine** – Hierarchical state machine for player locomotion with parent/child states (Idle, Move, Run, TakingDamage, Death).
+**Tamamlanmamış:** Oyuncu saldırı işlemi ve kayıt slotu seçme paneli taslaktır. Kayıt modelleri birden fazla slotu destekleyecek yapıda olsa da mevcut kullanıcı akışı hızlı kayıt ve en son kayıtla devam et üzerine kuruludur.
 
-* **Component Pattern** – Player logic split into focused components via `IComponent` interface.
+## Kontroller
 
-* **Observer Pattern** – Events throughout (`OnHealthChanged`, `OnInventoryChanged`, `OnGamePaused`, etc.).
+| Tuş | İşlev |
+| --- | --- |
+| WASD / yön tuşları | Hareket |
+| Sol Shift | Koşma |
+| E | Yakındaki uygun nesneyle etkileşim |
+| Esc | Oyun içi menü geçişleri |
+| F5 | Hızlı kayıt; şu anda basılı tutulduğunda her karede tekrar yazar |
 
-* **Object Pool** – Zero-allocation AudioSource pooling in AudioManager.
+Input assetinde saldırı ve başka hazır eylemler de bulunur; binding bulunması oyun davranışının tamamlandığı anlamına gelmez. Kaynak: [InputSystem_Actions.inputactions](Assets/InputSystem_Actions.inputactions).
 
-* **Interface Segregation** – `ISavable`, `IInteractable`, `ICollectable`, `IDamageable` for clean contracts.
+## Sahne ve dosya düzeni
 
----
+Build sırası: **MainMenu → Episode(01) → EndGame**. Liste [EditorBuildSettings.asset](ProjectSettings/EditorBuildSettings.asset) içinde tutulur.
 
-## 🧩 Modular Player Controller
-
-Instead of relying on a monolithic controller script, the player logic is divided into **small, focused components**:
-
-| Component | Responsibility |
-|-----------|----------------|
-| `MovementComponent` | Physics-based movement with acceleration/deceleration, walk & run speeds |
-| `HealthComponent` | Health tracking, damage events, death triggers |
-| `AttackComponent` | Attack input handling |
-| `InteractionComponent` | Detects nearby interactables, triggers interactions |
-| `InventoryComponent` | 5-slot inventory, stackable items, coin system |
-| `PlayerVisualComponent` | Animator control, 4-direction sprites, footstep sounds |
-
----
-
-## ⚙️ Core Systems
-
-### 🎮 Game Manager
-
-* Manages game states: `Playing`, `Paused`, `Gameover`, `EndGame`
-* Time scale manipulation for pause
-* Events: `OnGamePaused`, `OnGameStarted`, `OnGameEnded`, `OnGameover`
-* Quick Save / Quick Load integration
-
----
-
-### 🔊 Audio Manager
-
-* Zero-allocation, GC-friendly **Object Pooling** (20-64 AudioSources)
-* Integrated with **Unity Audio Mixer**
-* Grouped audio control: Master, SFX, Music, Ambience, UI
-* **Pause/Resume** per audio type
-* **Fade methods**: `FadeOutSound`, `FadeOutMusic`, `CrossfadeMusic`
-* UI sounds continue during game pause (`ignoreListenerPause`)
-* Volume persistence via PlayerPrefs
-* `isPlaying`-based auto-release with safety buffer
-
----
-
-### 🎹 Input Manager
-
-* Wrapper around Unity's new Input System
-* Input types: Move, Attack, Interact, Run, Cancel
-* Subscribe/Unsubscribe pattern for callbacks
-* Enable/disable player or UI input independently
-
-```csharp
-InputManager.Instance.Subscribe(InputType.Interact, OnInteract);
-Vector2 moveDir = InputManager.Instance.ReadInput<Vector2>(InputType.Move);
+```text
+Assets/
+  Scripts/                 Oyuncu, dünya nesneleri, sistemler ve UI kodu
+  Data/                    EnemyData tanımı ve düşman ayarı
+  ScriptableObjects/Items/ Eşya assetleri
+  Prefabs/                 Dünya nesneleri ve UI prefabları
+  Scenes/                  Menü, bölüm, bitiş; aydınlatma ve NavMesh verileri
+  Animations/              Klipler ve animator controller dosyaları
+  Audio/                   Sesler, AudioData assetleri ve mixer
+  AddressableAssetsData/   Addressables grupları ve ayarları
+  Plugins/, ThirdParty/    Harici araçlar ve onların örnekleri
+  _Recovery/               Eski kurtarma sahneleri; aktif build listesinde yok
+Packages/                  Paket manifesti ve kilit dosyası
+ProjectSettings/           Unity proje ayarları
 ```
 
----
+## Bilinen eksikler ve doğrulama
 
-### 💾 Save System
+- Ölüm ekranındaki yeniden başlatma, başarılı kayıt okumasından sonra sahneyi yeniden açmıyor.
+- Pause panelinin açılması/kapanması `GameManager.PauseGame/UnpauseGame` metotlarına bağlı değil.
+- Hızlı kayıt tek basış yerine basılı tutma kontrolü kullanıyor; dosyalar doğrudan mevcut kaydın üzerine yazılıyor.
+- Oyun koduna ait otomatik test veya CI build akışı bulunamadı. Harici paketlerin test/örnekleri oyun testleri değildir.
 
-Complete persistent save/load architecture:
+Ayrıntılar ve ele alınma sırası: [Mimari ve mevcut durum](docs/architecture.md).
 
-| Class | Role |
-|-------|------|
-| `SaveManager` | Singleton coordinating all save operations, quick save/load |
-| `SaveService` | JSON serialization via Newtonsoft.Json, file I/O |
-| `SaveableEntity` | Assigns unique IDs to saveable objects |
-| `ISavable` | Interface with `CaptureState()` / `RestoreState()` |
-| `GameSaveData` | Main container with per-scene data dictionary |
-| `MetaData` | Save slot info (timestamps, display names) |
+Kayıtlar `Application.persistentDataPath` altındaki `Saves/quickSave` dizinine yazılır; `savedata.json` ve `metadata.meta` oluşturulur. Bu konum proje klasörü değildir. İşletim sistemindeki gerçek yolu Unity üzerinden kontrol et; eski kayıtlarla çalışırken yedek al.
 
-**Saveable objects:** Player (position, health, inventory, state), Doors, Chests, Traps, Enemies, Drop Items
+## Geliştirme belgeleri
 
----
+- [Codex yönergeleri](AGENTS.md): Depoda çalışırken uygulanacak kısa kurallar.
+- [Mimari ve mevcut durum](docs/architecture.md): Sistem ilişkileri, kayıt akışı ve bilinen teknik borçlar.
+- [Gereksiz dosya adayları](docs/cleanup.md): Referans incelemesi, tutulan dosyalar ve temizlik önerileri.
 
-### 📦 Item & Inventory System
+Eski Copilot yönergeleri ve Memory Bank bu belgelere dönüştürüldü. Yeni özellikler veya hedef mimari kararlaştırıldıkça belgeler kodla birlikte güncellenmeli.
 
-* **ItemData** – ScriptableObject defining item properties (ID, name, icon, stackable, stack size)
-* **ItemDataBase** – Singleton loading items via Addressables with "Item" label
-* **InventoryComponent** – 5-slot inventory with coin system
-* Events: `OnCoinChanged`, `OnInventoryChanged`
+## Kullanılan araçlar ve içerikler
 
-```csharp
-inventory.AddItem(itemData, quantity);
-inventory.SpendMoney(cost);
-```
+Input System, URP 2D, Addressables, Unity Behavior, AI Navigation/NavMeshPlus, Newtonsoft.Json, uGUI/TextMesh Pro, LeanTween, NaughtyAttributes ve SerializedCollections kullanılıyor. UIEffect ve Rounded Corners paketleri de manifestte yer alıyor.
 
----
-
-### 🚪 Interaction System
-
-* **IInteractable** interface with `CanInteract`, `Interact()`, `SetInRange()`
-* **InteractableBase** – Abstract base managing range state
-
-| Interactable | Behavior |
-|--------------|----------|
-| `Door` | Locked/unlocked, requires key item, audio feedback, saves state |
-| `Chest` | Gives coins, open animation, one-time use, saves state |
-| `DropObject` | Collectible items, plays sound, disables on pickup |
-
----
-
-### 👾 Enemy System
-
-* **EnemyController** – Uses Unity Behavior package for AI
-* NavMeshAgent-based pathfinding
-* Configurable via **EnemyData** ScriptableObject (FollowRange, AttackRange, MaxHealth)
-* Saveable (position + health)
-
----
-
-### ⚡ Hazards
-
-* **Trap** – Spike traps with timed activation cycle
-* Damages `IDamageable` objects on collision
-* Saves activation state
-
----
-
-## 🖥️ UI Systems
-
-### In-Game UI
-
-| Panel | Features |
-|-------|----------|
-| `GameUI` | Main controller, panel transitions with LeanTween |
-| `StatsPanelUI` | Health, coins display |
-| `PauseMenu` | Resume, Settings, Main Menu, Quit |
-| `SettingsMenu` | Volume sliders with persistence |
-| `InventoryUI` | 5-slot display with real-time updates |
-| `DeathMenuUI` | Restart, Main Menu options |
-| `EndGameUI` | Fade to black on completion |
-
-### Main Menu UI
-
-* `UIManager` – Menu flow management
-* `SavePanelUI` – Save slot selection, load/delete saves
-
----
-
-## 🎞 Animation System
-
-* Uses **Blend Trees** for smooth **4-directional movement**
-* Smart diagonal handling (prioritizes horizontal/vertical)
-* Animation parameters: InputX, InputY, Move, MoveSpeed, TakeDamage, Death
-* Highly scalable for future states
-
----
-
-## 🗺 Environment & Lighting
-
-* **Layered Tilemap Architecture** – Easy sorting and collision
-* **2D Lighting System** – Dynamic lighting for dark atmosphere
-
----
-
-## 🔁 Player State Machine
-
-Hierarchical state machine structure:
-
-```
-LocomotionState (Parent)
-├── IdleState
-├── MoveState
-└── RunState
-
-TakingDamageState
-DeathState
-```
-
-```csharp
-public override void CheckTransitions() {
-    base.CheckTransitions();
-    if (_input != Vector2.zero) {
-        var state = _machine.GetState<MoveState>();
-        _machine.SetState(state);
-    }
-}
-```
-
----
-
-## 🛠 Libraries & Tools
-
-| Library | Usage |
-|---------|-------|
-| **LeanTween** | UI animations, fade effects, delayed calls |
-| **NaughtyAttributes** | Inspector enhancements, [Scene] attribute |
-| **Newtonsoft.Json** | Save system serialization |
-| **Addressables** | Item database loading |
-| **Unity Behavior** | Enemy AI decision graphs |
-| **TextMesh Pro** | UI text rendering |
-
----
-
-## 🎨 Used Assets
-
-* **Free Vampire 4-Direction Pixel Character Sprite Pack**
-* **Dungeon Asset Pack**
-
----
-
-## Future Plans
-
-* Design more levels
-* Combat system expansion
-* NPC dialogue system
+Eski README, karakterleri “Free Vampire 4-Direction Pixel Character Sprite Pack”, çevreyi “Dungeon Asset Pack” olarak belirtiyordu. Üçüncü taraf lisans ve atıf dosyalarını koru; içerikleri yeniden dağıtmadan önce ilgili lisansları doğrula. Depo kökünde projeye ait bir lisans dosyası bulunmuyor.
