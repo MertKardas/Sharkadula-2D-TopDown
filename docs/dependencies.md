@@ -87,9 +87,9 @@ Bunlar diğer paketler tarafından getiriliyor. Özellikle **Newtonsoft.Json 3.2
 
 Bu envanter bir lisans incelemesi değildir; dağıtım öncesi ilgili lisans ve atıf dosyalarını kontrol et. Temizlik adayları için [cleanup.md](cleanup.md) dosyasına bak.
 
-## Unity MCP connection
+## Unity CLI bağlantısı
 
-`com.unity.pipeline` **1.0.0** provides the local Editor connection for the Unity CLI and Codex MCP server. The existing global Codex registration runs `unity mcp`; no duplicate server entry is needed. Check the connection with `unity status --format json` after the Editor imports the package.
+`com.unity.pipeline` **1.0.0**, Unity CLI'nin (`unity`) açık Editor'e bağlanmasını sağlar. Editor paketi içe aktardıktan sonra bağlantıyı `unity status --format json` ile kontrol et. MCP sunucusu (`unity mcp`) depoda kayıtlı değildir; gerekirse kullanıcı düzeyinde yapılandırılır.
 
 ## Removed dependency: NaughtyAttributes
 

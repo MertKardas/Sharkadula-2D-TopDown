@@ -60,8 +60,7 @@ Bu aday gruplar toplam **749 dosya**, yaklaşık **13,66 MiB**. Klasör metalar�
 | `.github/copilot-instructions.md` | Codex'in proje yönergeleri için kökte `AGENTS.md`; yanlış klasör/özellik iddiaları düzeltildi. |
 | `MEMORY_BANK.md` | Tekrarlayan ve eski içerik yerine `docs/architecture.md` ve bu rapor. Eski sürüm Git geçmişinde mevcut. |
 | `README.md` | Gerçek Editor sürümü, açılış adımları, mevcut/taslak özellik ayrımı ve belge bağlantıları. |
-
-Codex yönerge dosyası için kaynak: [OpenAI AGENTS.md rehberi](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
+| `AGENTS.md` (16 Kasım 2026) | Tek talimat dosyası olarak `CLAUDE.md`; yola bağlı kurallar `.claude/rules`, skill'ler `.claude/skills`. |
 
 ## Temizlik sonrası kontrol
 
@@ -73,7 +72,7 @@ Codex yönerge dosyası için kaynak: [OpenAI AGENTS.md rehberi](https://learn.c
 
 ## Git ignore düzenlemesi
 
-Unity önbellek/build kuralları korundu. Üretilen `*.slnx` dosyaları, Rider önbelleği, işletim sistemi dosyaları ve yeni recovery çıktıları ignore edildi. Önceden takip edilen recovery sahneleri hâlâ Git içinde; ignore kuralı onları silmez veya takipten çıkarmaz. `Assets`, `Packages`, `ProjectSettings`, `.vscode` ayarları ve Codex belgeleri topluca ignore edilmedi.
+Unity önbellek/build kuralları korundu. Üretilen `*.slnx` dosyaları, Rider önbelleği, işletim sistemi dosyaları ve yeni recovery çıktıları ignore edildi. Önceden takip edilen recovery sahneleri hâlâ Git içinde; ignore kuralı onları silmez veya takipten çıkarmaz. `Assets`, `Packages`, `ProjectSettings`, `.vscode` ayarları ve yapay zeka talimat belgeleri topluca ignore edilmedi.
 
 ## NaughtyAttributes removal update
 

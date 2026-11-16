@@ -8,9 +8,13 @@ paths:
 
 # Kayıt sistemi kuralları
 
-- JSON, `TypeNameHandling.Auto` ile tür adlarını saklar. Kayıt modeli sınıfı, namespace'i veya assembly'si değişirse eski kayıtlar okunamayabilir: uyumluluk (binder, göç kodu veya bilinçli kırılma kararı) ele alınmalı ve kullanıcıya söylenmeli.
-- Oyuncu durum makinesinin üst/alt durum tür adları da kayda yazılır; durum sınıflarını yeniden adlandırmak kayıt formatını değiştirir.
-- `SaveableEntity.UniqueId` sahne verisinin anahtarıdır. Prefab kopyası veya çoğaltılmış nesnede kimliğin benzersiz olduğunu doğrula.
-- `FindAllSavables()` etkin olmayan nesneleri de toplar; toplanmış eşyanın durumu buna dayanır.
-- Gerçek kullanıcı kayıtlarına (`Application.persistentDataPath/Saves`) test sırasında yazma; geçici dizin kullan veya önce yedek al.
+Ayrıntılı tasarım: [SaveSystem/README.md](../../Assets/Scripts/Systems/SaveSystem/README.md).
+
+- Kayıt tek tablodur: `GameSaveData.Objects[UniqueId] -> EntitySaveData`. Aktif sağlayıcı `EasySaveStorage`; format sürümü 2, `SavesV3/quickSave.es3`. Format veya DTO değişikliğinde sürüm ve eski kayıt davranışını bilinçli ele al ve kullanıcıya söyle.
+- Eski `Saves` (JSON, `TypeNameHandling.Auto`) ve `SavesV2` dosyaları okunmaz, dönüştürülmez, üzerine yazılmaz. `Legacy/` sağlayıcıdaki sınıf/namespace adları tür adı olarak JSON'da saklıdır; yeniden adlandırma eski dosyaları bozar.
+- `SaveableEntity.UniqueId` kayıt anahtarıdır ve tüm build sahnelerinde benzersiz olmalıdır (tek istisna `sharkadula.player`). Kopyalanan nesnelerden sonra `Tools > Save System > Validate Build Scene IDs` çalıştır; kimlikleri topluca yeniden üretme.
+- Kalıcı silme yalnızca `entity.MarkRemoved()` ile bildirilir; `SetActive(false)`, `OnDisable` veya `OnDestroy` silme sayılmaz.
+- Runtime nesne üretimi `DynamicObjectSpawner.Create(prefabId, position)` üzerinden yapılır.
+- Yeni DTO'lar canlı modelle mutable liste/eleman paylaşmaz.
+- Gerçek kullanıcı kayıtlarına (`Application.persistentDataPath`) test sırasında yazma; geçici dizin kullan veya önce yedek al.
 - Kayıt mantığı değişikliğinde en az bir round-trip regresyon kontrolü ekle (kaydet → yükle → durum eşit).

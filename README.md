@@ -90,7 +90,7 @@ Sahne nesneleri ve spawner kayıt kimlikleri bütün build sahnelerinde benzersi
 
 ## Geliştirme belgeleri
 
-- [Codex yönergeleri](AGENTS.md): Depoda çalışırken uygulanacak kısa kurallar.
+- [Proje yönergeleri](CLAUDE.md): Depoda yapay zeka ile çalışırken uygulanan tek talimat dosyası; ek kurallar ve skill'ler `.claude/` altında.
 - [Mimari ve mevcut durum](docs/architecture.md): Sistem ilişkileri, kayıt akışı ve bilinen teknik borçlar.
 - [Bağımlılık envanteri](docs/dependencies.md): Harici kütüphaneler, Unity paketleri ve kurulum durumu.
 - [Gereksiz dosya adayları](docs/cleanup.md): Referans incelemesi, tutulan dosyalar ve temizlik önerileri.

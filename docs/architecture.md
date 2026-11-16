@@ -159,7 +159,7 @@ Bunlar statik incelemede görülen durumlardır; bu belge düzenlemesinde düzel
 
 Temizlik ve mimari değişikliklerini ayrı, küçük kapsamlarla uygula. UI ve DI geçişlerinden sonra 14 Kasım 2026 Easy Save tasarımı uygulandı; 15 Kasım 2026 [ID tabanlı sadeleştirme](superpowers/specs/2026-11-15-id-based-save-design.md) bu yapının veri modelini değiştirdi. Bu kayıt geçişi dışında paket yükseltme veya dosya temizliği yapılmadı.
 
-Dosya adayları ve referans bulguları için [temizlik raporuna](cleanup.md), çalışma kuralları için [AGENTS.md](../AGENTS.md) dosyasına bak.
+Dosya adayları ve referans bulguları için [temizlik raporuna](cleanup.md), çalışma kuralları için [CLAUDE.md](../CLAUDE.md) dosyasına bak.
 
 ## Kaynak klasör düzeni
 
