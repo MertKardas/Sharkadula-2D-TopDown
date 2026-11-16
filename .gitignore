@@ -63,3 +63,8 @@ crashlytics-build.properties
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Claude Code local files (shared .claude/settings.json, rules and skills stay tracked)
+/.claude/worktrees/
+/.claude/settings.local.json
+/CLAUDE.local.md

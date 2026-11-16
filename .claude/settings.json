@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git grep:*)",
+      "Bash(unity status:*)",
+      "Bash(unity recompile:*)",
+      "Bash(unity --help)",
+      "Bash(unity cmd --help)"
+    ],
+    "ask": [
+      "Edit(/Assets/ThirdParty/**)",
+      "Edit(/Assets/Plugins/**)",
+      "Edit(/Assets/TextMesh Pro/**)",
+      "Edit(/Packages/**)",
+      "Edit(/ProjectSettings/**)",
+      "Write(/Assets/ThirdParty/**)",
+      "Write(/Assets/Plugins/**)",
+      "Write(/Assets/TextMesh Pro/**)"
+    ],
+    "deny": [
+      "Edit(/Library/**)",
+      "Edit(/Temp/**)",
+      "Edit(/Logs/**)",
+      "Edit(/UserSettings/**)",
+      "Edit(/Assets/InputSystem_Actions.cs)",
+      "Write(/Library/**)",
+      "Write(/Temp/**)",
+      "Write(/Assets/InputSystem_Actions.cs)"
+    ]
+  }
+}
