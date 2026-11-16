@@ -1,75 +1,33 @@
-using System.Buffers.Text;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class LocomotionState : HierarchicalState<PlayerController> {
-    private HealthComponent _health;
-    private InteractionComponent _interaction;
-    
     public LocomotionState(PlayerController controller, StateMachine<PlayerController> machine)
         : base(controller, machine) {
-        _health = controller.HealthComponent;
-        _interaction = controller.InteractionComponent;
-
-        // Sub-state'leri ekle
         AddSubState(new IdleState(controller, _subStateMachine));
         AddSubState(new MoveState(controller, _subStateMachine));
         AddSubState(new RunState(controller, _subStateMachine));
     }
 
     public override void Enter() {
-        // Ortak event subscriptions
-        _health.OnTakingDamage += OnTakeDamage;
-        _health.OnDeath += OnDeath;
-        InputManager.Instance.Subscribe(InputType.Interact, OnInteract);
-
-        //test save for now 
-        
-
-        if (_subStateMachine.CurrentState == null) {
-            var idleState = _subStateMachine.GetState<IdleState>();
-            _subStateMachine.SetState(idleState);
-        }
-        base.Enter();
+        _subStateMachine.SetState(_subStateMachine.GetState<IdleState>());
     }
 
     public override void Exit() {
-        base.Exit();
-
-        // Unsubscribe events
-        _health.OnTakingDamage -= OnTakeDamage;
-        _health.OnDeath -= OnDeath;
-        InputManager.Instance.Unsubscribe(InputType.Interact, OnInteract);
+        _subStateMachine.CurrentState?.Exit();
     }
-    public override void Update() {
-        if(Keyboard.current.f5Key.IsPressed()) {
-            Debug.Log("F5 pressed - Saving game.");
-            SaveManager.Instance.QuickSave();
+
+    public override void CheckTransitions() {
+        State<PlayerController> next;
+        if (_controller.MoveInput != Vector2.zero) {
+            next = _controller.RunRequested
+                ? _subStateMachine.GetState<RunState>()
+                : _subStateMachine.GetState<MoveState>();
+        } else if (_controller.Rigidbody.linearVelocity.sqrMagnitude < _controller.Movement.IdleSpeedThreshold * _controller.Movement.IdleSpeedThreshold) {
+            next = _subStateMachine.GetState<IdleState>();
+        } else {
+            return;
         }
-        base.Update();
-    }
 
-    private void OnTakeDamage() {
-        // Parent state'e ge�i�
-        var state = _machine.GetState<TakingDamageState>();
-        _machine.SetState(state);
-    }
-
-    private void OnDeath() {
-        // Parent state'e ge�i�
-        var state = _machine.GetState<DeathState>();
-        _machine.SetState(state);
-    }
-
-    private void OnInteract(InputAction.CallbackContext context) {
-        if (context.performed) {
-            _interaction?.InteractAction();
-        }
-    }
-    private void HandleSaveButton(InputAction.CallbackContext context) {
-        if (context.performed) {
-            Debug.Log("F5 pressed - Saving game.");
-            SaveManager.Instance.QuickSave();
-        }
+        if (_subStateMachine.CurrentState != next) _subStateMachine.SetState(next);
     }
 }

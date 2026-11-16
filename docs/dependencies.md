@@ -6,14 +6,16 @@ Güncelleme: **13 Kasım 2026**. Paketler `Packages/manifest.json` ve `packages-
 
 | Kütüphane | Sürüm | Kaynak / konum | Amaç |
 | --- | --- | --- | --- |
-| VContainer | 1.19.0 | UPM: `jp.hadashikick.vcontainer` | Dependency injection ve yaşam süresi yönetimi |
+| VContainer | 1.19.0 | UPM: `jp.hadashikick.vcontainer` | Aktif uygulama/sahne dependency injection ve saf C# servis yaşam süreleri |
 | MessagePipe | 1.8.2 | UPM: `com.cysharp.messagepipe` | Mesaj yayınlama/abonelik |
 | MessagePipe.VContainer | 1.8.2 | UPM: `com.cysharp.messagepipe.vcontainer` | İki kütüphane arasındaki entegrasyon |
-| UniTask | 2.5.11 | UPM: `com.cysharp.unitask` | Unity async/await; MessagePipe Unity bağımlılığı |
+| UniTask | 2.5.11 | UPM: `com.cysharp.unitask` | Sahne başlangıcında nesnelerin Start aşamasını bekleme |
+| Easy Save 3 | Asset sürümü doğrulanmadı | `Assets/Plugins/Easy Save 3` | Aktif `EasySaveStorage` sağlayıcısı; tek dosyada metadata ve oyun verisi |
 | UIEffect | 5.11.8 | UPM: `com.coffee.ui-effect` | UI görsel efektleri |
 | NavMeshPlus | 0.2.23 | UPM: `com.h8man.2d.navmeshplus` | 2D NavMesh desteği |
 | UI Rounded Corners | 3.5.0 | UPM: `com.nobi.roundedcorners` | UI köşelerini yuvarlama |
-| LeanTween | 2.50 | `Assets/ThirdParty/LeanTween` | Tween ve UI animasyonları |
+| PrimeTween | 1.5.2 | UPM: `com.kyrylokuzyk.primetween`, yerel `Packages/com.kyrylokuzyk.primetween.tgz` | UI geçişleri ve animasyonları |
+| LeanTween | 2.50 | `Assets/ThirdParty/LeanTween` | `AudioService` ses fade'leri; UI tarafından kullanılmıyor |
 | SerializedCollections | Kaynakta doğrulanamadı | `Assets/Plugins/SerializedCollections` | Inspector'da serileştirilebilir sözlükler |
 
 ### Unity 6.5 compile compatibility
@@ -23,7 +25,7 @@ The project now targets **6000.5.9f1**. UIEffect **5.11.8** and NavMeshPlus comm
 
 Removed `com.unity.2d.enhancers`, which is unused by game code and brings AI Generators/Toolkit versions that fail to compile on Unity 6.5. Its AI generation tools are no longer installed. Package changes were resolved with UPM `Client.AddAndRemove` in a temporary project.
 
-VContainer, MessagePipe and UniTask are dependencies only; integration into game code remains pending. Play Mode and player builds have not been verified. Unity 6000.5.9f1 successfully compiled both the open project and a separate copy of all C# sources with the same packages.
+VContainer is integrated through AppLifetimeScope and SceneLifetimeScope; its pure C# services and scene injection have Play Mode regression coverage. MessagePipe remains a dependency only; UniTask coordinates scene startup after object initialization. Easy Save 3 is installed as an asset and used through ISaveStorage. Windows player C# assemblies compile; full IL2CPP executable verification remains blocked by the previously reported missing Windows SDK. Unity 6000.5.9f1 successfully compiled both the open project and a separate copy of all C# sources with the same packages.
 
 ## Unity'nin doğrudan paketleri
 

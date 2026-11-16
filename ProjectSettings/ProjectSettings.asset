@@ -152,6 +152,7 @@ PlayerSettings:
   preloadedAssets:
   - {fileID: 11400000, guid: db717335b738dee478487fe8adac246c, type: 2}
   - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  - {fileID: 11400000, guid: f6e0c5260e8edf84bad76ef9085a5c88, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   xboxOneDisableKinectGpuReservation: 1
@@ -689,11 +690,12 @@ PlayerSettings:
     EmbeddedLinux: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
     LinuxHeadlessSimulation: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
     Nintendo Switch: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
+    Nintendo Switch 2: ES3_TMPRO;ES3_UGUI
     PS4: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
     PS5: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
     QNX: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
     Server: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
-    Standalone: 
+    Standalone: ES3_TMPRO;ES3_UGUI
     VisionOS: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
     WebGL: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI
     Windows Store Apps: UNITY_VISUAL_SCRIPTING;ES3_TMPRO;ES3_UGUI

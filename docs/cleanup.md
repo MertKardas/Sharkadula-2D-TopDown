@@ -25,10 +25,10 @@ Bu dosyaları yalnızca içerikleri boş diye silmek Missing Script bağlantıla
 
 | Dosya | Referans | Öneri |
 | --- | --- | --- |
-| `Assets/Scripts/Torch.cs` | `Assets/Prefabs/torch.prefab` | Boş bileşeni önce prefabdan kaldır; sonra script ve metasını kaldır. |
-| `Assets/Scripts/UI/Main Menu UI/SavePanelUI.cs` | `MainMenu.unity` ve iki recovery sahnesi | Slot seçimi yapılmayacaksa önce sahne bileşenlerini kaldır. Yapılacaksa taslağı kullan. |
+| `Assets/Scripts/World/Torch.cs` | `Assets/Prefabs/torch.prefab` | Boş bileşeni önce prefabdan kaldır; sonra script ve metasını kaldır. |
+| `Assets/Scripts/UI/MainMenu/SavePanelUI.cs` | `MainMenu.unity` ve iki recovery sahnesi | Slot seçimi yapılmayacaksa önce sahne bileşenlerini kaldır. Yapılacaksa taslağı kullan. |
 | `Assets/AttackAnimationState.cs` | `PlayerAnimationController.controller` | Animator state davranışını kaldırmadan scripti silme. |
-| `Assets/Scripts/Player/AttackComponent.cs` | Oyuncu tarafından alan/başlatma üzerinden kullanılıyor | Bu bir özellik taslağı; saldırı kapsamına karar vermeden gereksiz sayma. |
+| `Assets/Scripts/Player/Components/AttackComponent.cs` | Oyuncunun serialize edilmiş referansı üzerinden bağlı | Bu bir özellik taslağı; saldırı kapsamına karar vermeden gereksiz sayma. |
 
 ## Toplu örnek ve kurtarma içeriği
 

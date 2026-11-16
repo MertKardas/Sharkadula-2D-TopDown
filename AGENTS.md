@@ -9,13 +9,13 @@
 
 ## Proje
 
-- Unity **6000.3.3f1**, C#, URP 2D ve uGUI. Bu bir yeniden düzenlenmekte olan eski tek oyunculu demodur.
+- Unity **6000.5.9f1**, C#, URP 2D ve uGUI. Bu bir yeniden düzenlenmekte olan eski tek oyunculu demodur.
 - Build sahneleri sırasıyla `MainMenu`, `Episode(01)`, `EndGame`.
-- Oyuncu: `Assets/Scripts/Player/PlayerController.cs`, `IComponent` bileşenleri ve `Player/States` altındaki hiyerarşik durumlar.
-- Sistemler: `Assets/Scripts/Systems`; kayıt modelleri `Assets/Scripts/Models/GameSaveModels` ve `Systems/SaveSystem/Models` altında.
-- UI: `Assets/Scripts/UI`. `In Gmae Menu UI` klasör adı şu anda böyle; taşırken `.meta` kimliğini koru.
+- Oyuncu: `Assets/Scripts/Player/PlayerController.cs` giriş/yaşam döngüsünü bağlar ve kendi `PlayerServices` grubunu oluşturur; oyuncu servisleri VContainer'a kayıtlı değildir. `Player/Services` mantığı, `Player/Components` Unity adaptörlerini, `Player/States` durumları, `Player/Persistence` kayıt adaptörünü içerir. Ayarlar `PlayerConfiguration` SO'sundadır; runtime durumu SO'ya yazılmaz. `IComponent` kaldırılmıştır.
+- Sistemler: `Assets/Scripts/Systems` (`Audio`, `Input`, `SaveSystem`, `DependencyInjection`); kayıt modelleri `Assets/Scripts/Models/GameSaveModels` ve `Systems/SaveSystem/Models` altında.
+- UI: `Assets/Scripts/UI`. paneller `MainMenu`, `InGame`, `Inventory`, `EndGame`; ortak bileşenler `Common` altında. Taşırken `.meta` kimliğini koru.
 - Düşmanlar `EnemyController`, `EnemyMovement`, Unity Behavior ve NavMeshPlus kullanır; oyuncunun durum makinesini kullanmaz.
-- Eşyalar `ItemData`, `ItemDataBase` ve Addressables `Item` etiketiyle yüklenir.
+- Eşyalar `Assets/Scripts/Items` altında; `ItemCatalog`, Addressables `Item` etiketiyle yükler.
 
 ## Karpathy ilkeleri
 

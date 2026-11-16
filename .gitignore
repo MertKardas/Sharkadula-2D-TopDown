@@ -68,3 +68,10 @@ Desktop.ini
 /.claude/worktrees/
 /.claude/settings.local.json
 /CLAUDE.local.md
+
+# Licensed Asset Store packages (public repo): install locally from the Asset Store
+/[Aa]ssets/[Pp]lugins/Easy Save 3/
+/[Aa]ssets/[Pp]lugins/Easy Save 3.meta
+/[Aa]ssets/[Pp]lugins/PrimeTween/
+/[Aa]ssets/[Pp]lugins/PrimeTween.meta
+/[Pp]ackages/com.kyrylokuzyk.primetween.tgz
